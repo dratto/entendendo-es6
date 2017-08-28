@@ -16,6 +16,12 @@ produtos.set('Arroz', 7.10);
 produtos.set('Feijão', 2.30);
 produtos.set('Macarrão', 4.70);
 produtos.set('Refrigerante', 3.00);
+
+function possuiProduto(produtos, produtoDesejado) {
+  return produtos.has(produtoDesejado);
+}
+possuiProduto(produtos, 'Arroz');//printa true
+possuiProduto(produtos, 'Nutella');//printa false
 ```
 
 ## Exercício 2 - Comprinhas online
@@ -49,6 +55,7 @@ Fretes:
 
 ## Exercício 3 - Não sei qual algoritmo usar hoje
 Em que situações devemos usar uma implementação de `Map` ao invés de uma implementação de objeto literal?
+Quando queremos associar uma chave que seja um objeto. Ou quando temos uma grande necessidade com alteração e remoçao dos registros.
 
 ## Exercício 4 - Professor, quando eu vou usar isso na minha vida?
 Cite um exemplo de uso para a estrutura de `WeakMap`.

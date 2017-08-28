@@ -4,9 +4,11 @@ Nestes exercícios vamos rever como funciona a metaprogramação através dos pr
 
 ## Exercício 1 - Praticamente um sósia
 Diga, em poucas palavras, o são Proxies e o que é possível fazer com eles.
+Objetos para utilizar metaprogramação(explicada na questão seguinte). Sendo possível alterar comportamentos de chamadas de metódos e atributos.
 
 ## Exercício 2 - Meta o quê?
 Defina o que é metaprogramação e metaprogramas.
+Metaprogramação é o conceito de construir um algoritmo que construa outros algotimos. Metaprogramas são programas que constroem outros programas com suas particularidades especificas
 
 ## Exercício 3 - Sorria, você está sendo filmado
 Tomando como base o objeto `Livro` abaixo, crie um proxy que alerta no console sempre uma propriedade foi acessada. Não se esqueça de usar a trap do `get` para isso.
@@ -18,6 +20,18 @@ class Livro {
     this.autor = 'Diego Martins de Pinho';
   }
 }
+
+let livro = new Livro()
+let proxy = new Proxy(livro, {
+  get(alvo, propriedade) {
+    console.log(`Requisição da propriedade: ${propriedade}`)
+    return alvo[propriedade]
+  },
+  set(alvo, propriedade, valor) {
+    console.log(`Setando ${propriedade} com o valor: ${valor}`)
+    alvo[propriedade] = valor
+  }
+})
 ```
 
 ## Exercício 4 - Aqui você não seta nada!
@@ -34,6 +48,21 @@ class Compras {
     this.valorPago = valorPago;
   }
 }
+
+const carrinho = new Compras(['Doritos', 'Pringles', 'Fandangos'], 50.00, 25.00)
+let proxyCarrinho = new Proxy(carrinho, {
+  set(alvo, propriedade, valor) {
+    if(propriedade == 'valorAPagar') {
+      if(alvo['valorPago'] <= valor) {
+        throw new Error('Valor insuficiente para pagar!')
+      }
+    }
+    if(valor <= alvo['valorAPagar']) {
+      throw new Error('Valor insuficiente para pagar!')
+    }
+    alvo[propriedade] = valor
+  }
+})
 ```
 
 ## Exercício 6 - Fim da farsa, Usurpadora!
@@ -55,6 +84,9 @@ const usurpadora = {
   }
 }
 
-const paola = new Proxy({}, usurpadora);
-paola.dinheiro; // A Usurpadora está atacando!
+const {proxy, revoke} = Proxy.revocable({}, usurpadora);
+proxy.dinheiro; // A Usurpadora está atacando!
+revoke()
+proxy.marido
+
 ```

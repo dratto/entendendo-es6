@@ -4,15 +4,24 @@ Nos exercícios a seguir iremos rever as operações assícronas com promises.
 
 ## Exercício 1 - Promessa verdadeira
 Em poucas palavras, diga o que são as Promises.
+Uma funcionalidade para tratar uma certa parte do código como assíncrona. Ou seja, não trava a navegação ou o restante da execução, rodando em background.
 
 ## Exercício 2 - E que tudo mais vá para o inferno
 O que é `callback hell` e qual a sua relação com as Promises?
+multiplas chamadas de callback de multiplas requisições todas aninhadas em uma só função
 
 ## Exercício 3 - Você cumpre as suas promessas?
 Implemente o método simulaPromise() que recebe um parâmetro chamado `sucesso` que é um Boolean que indicará se a Promise foi realizada com sucesso ou não. O método deve receber esta parâmetro e imprimir a mensagem: `ok` em caso de sucesso e `not ok` no caso contrário.
 
 Exemplo:
 ``` javascript
+let promise = new Promise((resolve, reject) => {
+  if() {
+    resolve('ok')
+  } else {
+    reject('not ok')
+  }
+})
 simulaPromise(false); // not ok
 simulaPromise(true); // ok
 ```
